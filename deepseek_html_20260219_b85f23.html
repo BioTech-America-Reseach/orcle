@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORACLE CARD - KILINGE CHA DR. WILLIAM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0f1a 0%, #1a1f2e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            padding: 20px;
+        }
+        
+        /* KADI KUU */
+        .oracle-card {
+            width: 100%;
+            max-width: 500px;
+            height: 700px;
+            perspective: 2500px;
+            cursor: pointer;
+            margin: 20px auto;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 1.2s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.5);
+            border-radius: 30px;
+        }
+        
+        .oracle-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        /* MBELE YA KADI */
+        .card-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 30px;
+            overflow: hidden;
+            background: #111;
+            border: 3px solid #d4af37;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .oracle-card:hover .card-front img {
+            transform: scale(1.05);
+        }
+        
+        .front-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: #d4af37;
+            padding: 30px 20px;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+        }
+        
+        .front-overlay h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .front-overlay p {
+            color: #fff;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        /* NYUMA YA KADI - MAELEZO KAMILI (60+ POINTS) */
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 30px;
+            transform: rotateY(180deg);
+            background: #1a0f0a;
+            border: 3px solid #d4af37;
+            padding: 30px;
+            overflow-y: auto;
+            color: #f0e6d2;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .card-back::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .card-back::-webkit-scrollbar-track {
+            background: #2a1f1a;
+            border-radius: 10px;
+        }
+        
+        .card-back::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 10px;
+        }
+        
+        .card-back h1 {
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        
+        .section-title {
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            font-size: 1.3rem;
+            margin: 20px 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            font-size: 1.5rem;
+        }
+        
+        .points-list {
+            list-style: none;
+            padding-left: 10px;
+        }
+        
+        .points-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .points-list li::before {
+            content: "⭐";
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+        }
+        
+        .remedy-list li::before {
+            content: "🌿";
+        }
+        
+        .avoid-list li::before {
+            content: "🚫";
+        }
+        
+        .badge {
+            background: rgba(212, 175, 55, 0.2);
+            border-left: 4px solid #d4af37;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+        
+        /* KISANDUKU CHA NEXT PAGE */
+        .next-page-box {
+            max-width: 500px;
+            margin: 40px auto 20px;
+            background: linear-gradient(145deg, #800000, #b30000);
+            border: 3px solid #d4af37;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        
+        .next-page-box h3 {
+            color: #fff;
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .next-page-box p {
+            color: #f0e6d2;
+            margin-bottom: 20px;
+        }
+        
+        .next-btn {
+            display: inline-block;
+            background: #d4af37;
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            border: 2px solid #fff;
+            animation: glow 1.5s infinite;
+        }
+        
+        .next-btn:hover {
+            transform: scale(1.1);
+            background: #ffd700;
+            box-shadow: 0 0 30px rgba(255,215,0,0.5);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px #d4af37; }
+            50% { box-shadow: 0 0 30px #ffd700; }
+            100% { box-shadow: 0 0 10px #d4af37; }
+        }
+        
+        /* RATIBA YA KUSOMA */
+        .reading-guide {
+            max-width: 500px;
+            margin: 30px auto;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid #d4af37;
+            border-radius: 15px;
+            padding: 20px;
+            color: #fff;
+        }
+        
+        .reading-guide h4 {
+            color: #d4af37;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 10px;
+        }
+        
+        .steps {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .step {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #d4af37;
+            border-radius: 30px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+    </style>
+    <!-- FontAwesome kwa icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div style="width: 100%; max-width: 600px;">
+        <!-- KADI YA ORACLE (60+ POINTS) -->
+        <div class="oracle-card">
+            <div class="card-inner">
+                <!-- MBELE - Picha tu -->
+                <div class="card-front">
+                    <img src="https://images.unsplash.com/photo-1533036696707-887498c25389?auto=format&fit=crop&w=800&q=80" alt="Oracle Card">
+                    <div class="front-overlay">
+                        <h2>KONDE</h2>
+                        <p>Aries • Al-Hamal</p>
+                        <p style="font-size:0.9rem; margin-top:5px;">⬅️ Geuza kadi kufungua ujumbe</p>
+                    </div>
+                </div>
+                
+                <!-- NYUMA - Maelezo 60+ Points -->
+                <div class="card-back">
+                    <h1>🔮 KONDE (ARIES)</h1>
+                    
+                    <!-- SIFA 20 NZURI -->
+                    <div class="section-title">
+                        <i class="fas fa-star"></i> SIFA 20 NZURI
+                    </div>
+                    <ul class="points-list">
+                        <li>Una uhodari wa uongozi - watu wanakutii kwa hiari na kuamini maamuzi yako</li>
+                        <li>Wewe ni jasiri asiyeogopa changamoto zozote zinazokuja maishani</li>
+                        <li>Una nguvu za kiroho zinazokusaidia kufanya maamuzi sahihi na yenye busara</li>
+                        <li>Wewe ni mwaminifu na husema ukweli wazi hata ukiumiza - watu wanakuamini</li>
+                        <li>Una kipaji cha kutatua matatizo kwa haraka na kwa njia za kipekee</li>
+                        <li>Wewe ni mkarimu na huwasaidia wengine kwa moyo wote bila kutarajia kurudishiwa</li>
+                        <li>Una nidhamu ya kazi na unajituma kwa bidii mpaka kufikia malengo yako</li>
+                        <li>Wewe ni mvumilivu na hukata tamaa kwa urahisi - unastahimili nyakati zote</li>
+                        <li>Una bahati ya pesa na mafanikio katika shughuli zako za kifedha</li>
+                        <li>Wewe ni mkweli na hupendi uongo wala hila - unajulikana kwa uadilifu wako</li>
+                        <li>Una uwezo wa kuhamasisha na kuinua wengine kufikia malengo yao</li>
+                        <li>Wewe una maono makubwa na ndoto za mbali - unaweza kuona siku za usoni</li>
+                        <li>Una uwezo wa kusimamia watu na rasilimali kwa ufanisi mkubwa</li>
+                        <li>Wewe una hekima ya kufanya maamuzi sahihi nyakati zote muhimu</li>
+                        <li>Unajitolea kwa wengine kwa upendo usio na masharti na kujali kwa dhati</li>
+                        <li>Wewe una ushawishi mkubwa kwa watu unaokutana nao - wanakusikiliza</li>
+                        <li>Una uwezo wa kuleta mageuzi chanya katika jamii yako na mazingira</li>
+                        <li>Wewe una kipaji cha uongozi wa hali ya juu - wewe ni kiongozi wa asili</li>
+                        <li>Unawavutia watu kwa utu wako mzuri na tabia yako ya kupendeza</li>
+                        <li>Wewe ni mwenye bahati na baraka katika kila unalofanya maishani</li>
+                    </ul>
+                    
+                    <!-- SIFA 15 MBAYA -->
+                    <div class="section-title">
+                        <i class="fas fa-exclamation-triangle" style="color:#ff6b6b;"></i> SIFA 15 ZA KUZINGATIA
+                    </div>
+                    <ul class="points-list">
+                        <li>Wakati mwingine unaweza kuwa mkaidi sana na kushindwa kubadilisha msimamo</li>
+                        <li>Una hasira kali inayoweza kukufanya ufanye maamuzi ya haraka na mabaya</li>
+                        <li>Wakati mwingine unajiona bora kuliko wengine na kujawa na kiburi</li>
+                        <li>Unaweza kukosa subira na kutaka mambo yafanyike kwa kasi isiyo ya kawaida</li>
+                        <li>Wakati mwingine hukosa uvumilivu kwa changamoto ndogo ndogo za maisha</li>
+                        <li>Unaweza kujitenga na watu na kujifunga wenyewe kwa muda mrefu</li>
+                        <li>Una tabia ya kutokuamini watu na kuwa na shaka na wengine kupita kiasi</li>
+                        <li>Wakati mwingine hujali hisia za wengine na unaweza kuwaonea bila kukusudia</li>
+                        <li>Unaweza kuwa mkali na tabia kali inayowafukuza watu wengine</li>
+                        <li>Wakati mwingine hukosa mwelekeo na hujui unachotaka katika maisha</li>
+                        <li>Unaweza kukata tamaa kwa urahisi ukikabiliwa na shida kubwa</li>
+                        <li>Wakati mwingine unakuwa mbakhili na kushindwa kusaidia wengine</li>
+                        <li>Unaweza kukosa nidhamu na kushindwa kufuata taratibu muhimu</li>
+                        <li>Wakati mwingine hukosa uwazi na kuwa na siri zisizo za lazima</li>
+                        <li>Unaweza kukosa amani ya ndani na kuwa na wasiwasi na hofu nyingi</li>
+                    </ul>
+                    
+                    <!-- MAGONJWA 15 YANAYOWEZA KUKUHANGA -->
+                    <div class="section-title">
+                        <i class="fas fa-heartbeat" style="color:#ff6b6b;"></i> HATARI 15 ZA KIAFYA
+                    </div>
+                    <ul class="points-list">
+                        <li>Maumivu ya kichwa ya mara kwa mara yanayosababishwa na msongo wa mawazo</li>
+                        <li>Shinikizo la damu kutokana na hasira kali na kukosa utulivu wa akili</li>
+                        <li>Maumivu ya macho na uchovu wa macho kwa sababu ya kukaa kwenye skrini</li>
+                        <li>Kukosa usingizi (insomnia) kwa sababu ya mawazo mengi na wasiwasi</li>
+                        <li>Majeraha ya kichwa au uso kutokana na ajali au mapigano ya ghafla</li>
+                        <li>Sinusitis na mafua ya mara kwa mara kwa sababu ya mzio na hewa chafu</li>
+                        <li>Maumivu ya taya na meno kwa sababu ya kusaga meno usingizini</li>
+                        <li>Kichaa cha moyo (palpitations) kutokana na mkazo na mawazo mengi</li>
+                        <li>Uvimbe wa ubongo (meningitis) - hatari ndogo lakini iwe makini</li>
+                        <li>Matatizo ya usawa wa homoni yanayoathiri usingizi na hamu ya kula</li>
+                        <li>Kupata vidonda vya tumbo kutokana na mkazo na lishe isiyofaa</li>
+                        <li>Mzio wa ngozi usoni kwa sababu ya mabadiliko ya hewa na jua kali</li>
+                        <li>Kupata kifafa cha usingizi (sleep apnea) ikiwa una uzito kupita kiasi</li>
+                        <li>Maumivu ya shingo na mabega kwa sababu ya kukaa vibaya na mkazo</li>
+                        <li>Kuwa na wasiwasi na hofu nyingi (anxiety disorders) zinazoweza kukulemea</li>
+                    </ul>
+                    
+                    <!-- TIBA 10 ZA ASILI -->
+                    <div class="section-title">
+                        <i class="fas fa-leaf" style="color:#6bff6b;"></i> TIBA 10 ZA ASILI
+                    </div>
+                    <ul class="points-list remedy-list">
+                        <li>Kunywa maji ya joto na limao na asali kila asubuhi kabla ya kula chochote</li>
+                        <li>Tumia tangawizi na kitunguu saumu kwenye chakula chako kila siku</li>
+                        <li>Fanya mazoezi ya kupumua kwa kina (deep breathing) kwa dakika 10 kila siku</li>
+                        <li>Kunywa chai ya chamomile au lavender kabla ya kulala kutuliza neva</li>
+                        <li>Tumia mafuta ya zeituni au mafuta ya nazi kupaka mwili ili kulainisha ngozi</li>
+                        <li>Fanya massage ya kichwa na shingo mara kwa mara kwa kutumia mafuta ya mdalasini</li>
+                        <li>Tembea nje kwa hewa safi angalau dakika 30 kila siku asubuhi na mapema</li>
+                        <li>Kula matunda yenye vitamini C kama machungwa, ndimu, na mapera kila siku</li>
+                        <li>Kunywa maji ya nazi (madafu) mara kwa mara kusaidia mfumo wa kinga</li>
+                        <li>Fanya mazoezi ya yoga hasa yale yanayolenga kichwa na shingo ili kupunguza msongo</li>
+                    </ul>
+                    
+                    <!-- VITU 10 VYA KUEPUKA -->
+                    <div class="section-title">
+                        <i class="fas fa-ban" style="color:#ff4444;"></i> VITU 10 VYA KUEPUKA
+                    </div>
+                    <ul class="points-list avoid-list">
+                        <li>Epuka kukaa kwenye jua kali kwa muda mrefu bila kujikinga na mwanga</li>
+                        <li>Usitumie vichocheo kama kahawa nyingi au vinywaji vya nishati kupita kiasi</li>
+                        <li>Jiepushe na mabishano na ugomvi unaokufanya ukasirike na kupoteza amani</li>
+                        <li>Usipuuze usingizi wako - epuka kukaa macho usiku na kukosa usingizi</li>
+                        <li>Epuka kutumia simu au kompyuta kabla ya kulala kwa angalau saa moja</li>
+                        <li>Usile vyakula vya mafuta mengi na spicy sana hasa wakati wa usiku</li>
+                        <li>Epuka pombe kupita kiasi kwani inaongeza shinikizo la damu na mkazo</li>
+                        <li>Usijikaze sana kazini - pumzika mara kwa mara na chukua mapumziko</li>
+                        <li>Epuka kukaa kwenye mazingira yenye vumbi au moshi kwa muda mrefu</li>
+                        <li>Usiruhusu mawazo mabaya yakuchukue - tafuta ushauri na msaada</li>
+                    </ul>
+                    
+                    <!-- TABIA 10 ZA KUACHA -->
+                    <div class="section-title">
+                        <i class="fas fa-times-circle" style="color:#ff8888;"></i> TABIA 10 ZA KUACHA
+                    </div>
+                    <ul class="points-list">
+                        <li>Acha kukasirika kwa kila jambo dogo - jifunze kuvumilia na kusamehe</li>
+                        <li>Acha kuwa mkaidi na kushindwa kubadilisha msimamo wako hata ukikosea</li>
+                        <li>Acha kujiona bora kuliko wengine na kuwa na kiburi kisicho na msingi</li>
+                        <li>Acha kukosa subira na kuharakisha mambo yasiyohitaji haraka</li>
+                        <li>Acha kukata tamaa kwa urahisi - jifunze kupambana na changamoto</li>
+                        <li>Acha kujitenga na watu na kuwa mpweke - jenga uhusiano na wengine</li>
+                        <li>Acha kutokuamini watu - jifunze kuwa na imani na kuwategemea wengine</li>
+                        <li>Acha kutojali hisia za wengine na kuwaonea bila kukusudia</li>
+                        <li>Acha kuwa mkali na tabia kali zinazowafukuza watu wengine</li>
+                        <li>Acha kukosa mwelekeo - weka malengo wazi na uyafuate kwa bidii</li>
+                    </ul>
+                    
+                    <!-- NUKUU YA KUTIA MOYO -->
+                    <div class="badge">
+                        <i class="fas fa-quote-right" style="color:#d4af37; font-size:2rem; opacity:0.5;"></i>
+                        <p style="font-size:1rem;">"Wewe ni kiongozi wa asili, lakini kumbuka kuwa viongozi wakubwa ni wale wanaojua kusikiliza na kujali. Tumia nguvu zako kujenga, sio kubomoa."</p>
+                        <p style="text-align:right; color:#d4af37;">- Dr. William</p>
+                    </div>
+                    
+                    <!-- POINTS COUNTER (60+ Points) -->
+                    <div style="text-align:center; margin-top:20px; padding:10px; background:rgba(212,175,55,0.1); border-radius:10px;">
+                        <p style="color:#d4af37;"><i class="fas fa-crown"></i> Kadi hii ina maelezo <strong>80+ points</strong> ya hekima na mwongozo <i class="fas fa-crown"></i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RATIBA YA KUSOMA KADI -->
+        <div class="reading-guide">
+            <h4><i class="fas fa-book-open" style="color:#d4af37;"></i> Jinsi ya Kusoma Kadi Hii</h4>
+            <p>1. Weka mkono wako juu ya kadi na uliza swali moyoni mwako<br>
+            2. Geuza kadi polepole na uangalie picha - inakumbusha nini?<br>
+            3. Soma maelezo na tafakari - ujumbe upo wapi?<br>
+            4. Chukua hatua moja ndogo leo kulingana na ujumbe uliopata</p>
+            <div class="steps">
+                <span class="step">✦ Uliza</span>
+                <span class="step">✦ Geuza</span>
+                <span class="step">✦ Tafakari</span>
+                <span class="step">✦ Tend
