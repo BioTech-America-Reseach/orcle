@@ -1,449 +1,575 @@
 <!DOCTYPE html>
 <html lang="sw">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORACLE CARD - KILINGE CHA DR. WILLIAM</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0a0f1a 0%, #1a1f2e 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Playfair Display', serif;
-            padding: 20px;
-        }
-        
-        /* KADI KUU */
-        .oracle-card {
-            width: 100%;
-            max-width: 500px;
-            height: 700px;
-            perspective: 2500px;
-            cursor: pointer;
-            margin: 20px auto;
-        }
-        
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 1.2s cubic-bezier(0.4, 0.2, 0.2, 1);
-            transform-style: preserve-3d;
-            box-shadow: 0 30px 50px rgba(0,0,0,0.5);
-            border-radius: 30px;
-        }
-        
-        .oracle-card:hover .card-inner {
-            transform: rotateY(180deg);
-        }
-        
-        /* MBELE YA KADI */
-        .card-front {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 30px;
-            overflow: hidden;
-            background: #111;
-            border: 3px solid #d4af37;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-        }
-        
-        .card-front img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .oracle-card:hover .card-front img {
-            transform: scale(1.05);
-        }
-        
-        .front-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            color: #d4af37;
-            padding: 30px 20px;
-            text-align: center;
-            font-family: 'Cinzel', serif;
-        }
-        
-        .front-overlay h2 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .front-overlay p {
-            color: #fff;
-            font-style: italic;
-            opacity: 0.9;
-        }
-        
-        /* NYUMA YA KADI - MAELEZO KAMILI (60+ POINTS) */
-        .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 30px;
-            transform: rotateY(180deg);
-            background: #1a0f0a;
-            border: 3px solid #d4af37;
-            padding: 30px;
-            overflow-y: auto;
-            color: #f0e6d2;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        
-        .card-back::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .card-back::-webkit-scrollbar-track {
-            background: #2a1f1a;
-            border-radius: 10px;
-        }
-        
-        .card-back::-webkit-scrollbar-thumb {
-            background: #d4af37;
-            border-radius: 10px;
-        }
-        
-        .card-back h1 {
-            font-family: 'Cinzel', serif;
-            color: #d4af37;
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #d4af37;
-            padding-bottom: 10px;
-        }
-        
-        .section-title {
-            font-family: 'Cinzel', serif;
-            color: #d4af37;
-            font-size: 1.3rem;
-            margin: 20px 0 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .section-title i {
-            font-size: 1.5rem;
-        }
-        
-        .points-list {
-            list-style: none;
-            padding-left: 10px;
-        }
-        
-        .points-list li {
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
-        }
-        
-        .points-list li::before {
-            content: "⭐";
-            position: absolute;
-            left: 0;
-            color: #d4af37;
-        }
-        
-        .remedy-list li::before {
-            content: "🌿";
-        }
-        
-        .avoid-list li::before {
-            content: "🚫";
-        }
-        
-        .badge {
-            background: rgba(212, 175, 55, 0.2);
-            border-left: 4px solid #d4af37;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 10px 10px 0;
-            font-style: italic;
-        }
-        
-        /* KISANDUKU CHA NEXT PAGE */
-        .next-page-box {
-            max-width: 500px;
-            margin: 40px auto 20px;
-            background: linear-gradient(145deg, #800000, #b30000);
-            border: 3px solid #d4af37;
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            animation: pulse 2s infinite;
-        }
-        
-        .next-page-box h3 {
-            color: #fff;
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-        
-        .next-page-box p {
-            color: #f0e6d2;
-            margin-bottom: 20px;
-        }
-        
-        .next-btn {
-            display: inline-block;
-            background: #d4af37;
-            color: #000;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            border: 2px solid #fff;
-            animation: glow 1.5s infinite;
-        }
-        
-        .next-btn:hover {
-            transform: scale(1.1);
-            background: #ffd700;
-            box-shadow: 0 0 30px rgba(255,215,0,0.5);
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-            70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
-        }
-        
-        @keyframes glow {
-            0% { box-shadow: 0 0 10px #d4af37; }
-            50% { box-shadow: 0 0 30px #ffd700; }
-            100% { box-shadow: 0 0 10px #d4af37; }
-        }
-        
-        /* RATIBA YA KUSOMA */
-        .reading-guide {
-            max-width: 500px;
-            margin: 30px auto;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid #d4af37;
-            border-radius: 15px;
-            padding: 20px;
-            color: #fff;
-        }
-        
-        .reading-guide h4 {
-            color: #d4af37;
-            font-family: 'Cinzel', serif;
-            margin-bottom: 10px;
-        }
-        
-        .steps {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        
-        .step {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid #d4af37;
-            border-radius: 30px;
-            padding: 8px 15px;
-            font-size: 0.9rem;
-        }
-    </style>
-    <!-- FontAwesome kwa icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DR. WILLIAM · KUSOMA KADI ZA KIORACLE · KILINGE CHA HEKIMA</title>
+  <!-- Tailwind + mystical fonts + extra smoothness -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* background yenye texture ya kadi za kale */
+    body {
+      background: #0c0715;
+      background-image: 
+        radial-gradient(circle at 30% 40%, rgba(175, 140, 70, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(100, 70, 130, 0.2) 0%, transparent 35%),
+        repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.02) 0px, rgba(212, 175, 55, 0.02) 2px, transparent 2px, transparent 8px);
+      font-family: 'Playfair Display', serif;
+      min-height: 100vh;
+      color: #f0e9f0;
+      position: relative;
+    }
+    /* safu ya glasi iliyosafishwa */
+    .glass-master {
+      background: rgba(18, 10, 26, 0.4);
+      backdrop-filter: blur(16px) saturate(200%);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      box-shadow: 0 40px 70px -15px #000, 0 0 0 1px #b49450 inset;
+      border-radius: 3rem;
+    }
+    .gold-glow {
+      color: #f5dcb4;
+      text-shadow: 0 0 15px #cfaa5a, 0 4px 10px #000;
+    }
+    .card-flip {
+      perspective: 2500px;
+      transform-style: preserve-3d;
+    }
+    .card-inner {
+      transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+      transform-style: preserve-3d;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .card-front, .card-back {
+      backface-visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 2rem;
+      overflow: hidden;
+      border: 2px solid #caa75b;
+      box-shadow: 0 25px 40px -8px black;
+    }
+    .card-front {
+      background: linear-gradient(145deg, #271f33, #1f1729);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+    }
+    .card-back {
+      background: #221c2b;
+      background-image: url('https://images.unsplash.com/photo-1617791160505-6f00504e3519?q=80&w=1964&auto=format&fit=crop');
+      background-size: 120% 120%;
+      background-position: center;
+      transform: rotateY(0deg);
+      border: 2px solid #e2c082;
+    }
+    .flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    /* kadi zinazoruka – muda mrefu na wingi */
+    .shuffle-particle {
+      position: absolute;
+      width: 70px;
+      height: 110px;
+      background: url('https://images.unsplash.com/photo-1617791160505-6f00504e3519?q=80&w=1964&auto=format&fit=crop') center/cover;
+      border-radius: 16px;
+      border: 2px solid #d4af37;
+      opacity: 0;
+      animation: flyLong 5.5s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+      pointer-events: none;
+      box-shadow: 0 0 40px #ffd966, 0 0 15px #b8860b;
+      will-change: transform, opacity;
+    }
+    @keyframes flyLong {
+      0% { transform: translate(var(--start-x), var(--start-y)) scale(0.1) rotate(0deg); opacity: 0; filter: blur(8px); }
+      5% { opacity: 0.9; filter: blur(2px); }
+      80% { opacity: 0.8; }
+      100% { transform: translate(var(--end-x), var(--end-y)) scale(1) rotate(var(--rot)); opacity: 0.15; filter: blur(0); }
+    }
+    /* modal ya kikomo */
+    .modal-premium {
+      background: rgba(20, 8, 28, 0.95);
+      backdrop-filter: blur(24px);
+      border: 2px solid #b89e5a;
+      box-shadow: 0 0 60px #aa7e44;
+    }
+    .btn-royal {
+      background: linear-gradient(145deg, #b28d4a, #e7cb8a);
+      color: #0a0412;
+      font-weight: 800;
+      border: none;
+      box-shadow: 0 10px 30px #d4a747;
+      transition: all 0.25s;
+    }
+    .btn-royal:hover {
+      background: linear-gradient(145deg, #cfaa60, #ffeaaf);
+      transform: scale(1.04);
+      box-shadow: 0 10px 45px #f8d070;
+    }
+    .dr-logo {
+      font-family: 'Cinzel', serif;
+      background: linear-gradient(135deg, #f2ddb0, #d8b15a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 900;
+      font-size: 3rem;
+      letter-spacing: 5px;
+      filter: drop-shadow(0 4px 6px black);
+    }
+    /* kitufe cha next page kizuri */
+    .next-page-btn {
+      background: linear-gradient(145deg, #8a6e3f, #c9aa5e);
+      border: 2px solid #f5d37c;
+      color: #0f0a1a;
+      font-weight: bold;
+      padding: 1rem 3rem;
+      border-radius: 60px;
+      font-size: 1.8rem;
+      box-shadow: 0 10px 30px #b38b40, 0 0 20px #ffdb9d inset;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
+    }
+    .next-page-btn:hover {
+      background: linear-gradient(145deg, #a7874a, #e8cf88);
+      transform: scale(1.08);
+      box-shadow: 0 15px 40px #e5b85c;
+      border-color: #ffeaaf;
+    }
+  </style>
 </head>
-<body>
-    <div style="width: 100%; max-width: 600px;">
-        <!-- KADI YA ORACLE (60+ POINTS) -->
-        <div class="oracle-card">
-            <div class="card-inner">
-                <!-- MBELE - Picha tu -->
-                <div class="card-front">
-                    <img src="https://images.unsplash.com/photo-1533036696707-887498c25389?auto=format&fit=crop&w=800&q=80" alt="Oracle Card">
-                    <div class="front-overlay">
-                        <h2>KONDE</h2>
-                        <p>Aries • Al-Hamal</p>
-                        <p style="font-size:0.9rem; margin-top:5px;">⬅️ Geuza kadi kufungua ujumbe</p>
-                    </div>
-                </div>
-                
-                <!-- NYUMA - Maelezo 60+ Points -->
-                <div class="card-back">
-                    <h1>🔮 KONDE (ARIES)</h1>
-                    
-                    <!-- SIFA 20 NZURI -->
-                    <div class="section-title">
-                        <i class="fas fa-star"></i> SIFA 20 NZURI
-                    </div>
-                    <ul class="points-list">
-                        <li>Una uhodari wa uongozi - watu wanakutii kwa hiari na kuamini maamuzi yako</li>
-                        <li>Wewe ni jasiri asiyeogopa changamoto zozote zinazokuja maishani</li>
-                        <li>Una nguvu za kiroho zinazokusaidia kufanya maamuzi sahihi na yenye busara</li>
-                        <li>Wewe ni mwaminifu na husema ukweli wazi hata ukiumiza - watu wanakuamini</li>
-                        <li>Una kipaji cha kutatua matatizo kwa haraka na kwa njia za kipekee</li>
-                        <li>Wewe ni mkarimu na huwasaidia wengine kwa moyo wote bila kutarajia kurudishiwa</li>
-                        <li>Una nidhamu ya kazi na unajituma kwa bidii mpaka kufikia malengo yako</li>
-                        <li>Wewe ni mvumilivu na hukata tamaa kwa urahisi - unastahimili nyakati zote</li>
-                        <li>Una bahati ya pesa na mafanikio katika shughuli zako za kifedha</li>
-                        <li>Wewe ni mkweli na hupendi uongo wala hila - unajulikana kwa uadilifu wako</li>
-                        <li>Una uwezo wa kuhamasisha na kuinua wengine kufikia malengo yao</li>
-                        <li>Wewe una maono makubwa na ndoto za mbali - unaweza kuona siku za usoni</li>
-                        <li>Una uwezo wa kusimamia watu na rasilimali kwa ufanisi mkubwa</li>
-                        <li>Wewe una hekima ya kufanya maamuzi sahihi nyakati zote muhimu</li>
-                        <li>Unajitolea kwa wengine kwa upendo usio na masharti na kujali kwa dhati</li>
-                        <li>Wewe una ushawishi mkubwa kwa watu unaokutana nao - wanakusikiliza</li>
-                        <li>Una uwezo wa kuleta mageuzi chanya katika jamii yako na mazingira</li>
-                        <li>Wewe una kipaji cha uongozi wa hali ya juu - wewe ni kiongozi wa asili</li>
-                        <li>Unawavutia watu kwa utu wako mzuri na tabia yako ya kupendeza</li>
-                        <li>Wewe ni mwenye bahati na baraka katika kila unalofanya maishani</li>
-                    </ul>
-                    
-                    <!-- SIFA 15 MBAYA -->
-                    <div class="section-title">
-                        <i class="fas fa-exclamation-triangle" style="color:#ff6b6b;"></i> SIFA 15 ZA KUZINGATIA
-                    </div>
-                    <ul class="points-list">
-                        <li>Wakati mwingine unaweza kuwa mkaidi sana na kushindwa kubadilisha msimamo</li>
-                        <li>Una hasira kali inayoweza kukufanya ufanye maamuzi ya haraka na mabaya</li>
-                        <li>Wakati mwingine unajiona bora kuliko wengine na kujawa na kiburi</li>
-                        <li>Unaweza kukosa subira na kutaka mambo yafanyike kwa kasi isiyo ya kawaida</li>
-                        <li>Wakati mwingine hukosa uvumilivu kwa changamoto ndogo ndogo za maisha</li>
-                        <li>Unaweza kujitenga na watu na kujifunga wenyewe kwa muda mrefu</li>
-                        <li>Una tabia ya kutokuamini watu na kuwa na shaka na wengine kupita kiasi</li>
-                        <li>Wakati mwingine hujali hisia za wengine na unaweza kuwaonea bila kukusudia</li>
-                        <li>Unaweza kuwa mkali na tabia kali inayowafukuza watu wengine</li>
-                        <li>Wakati mwingine hukosa mwelekeo na hujui unachotaka katika maisha</li>
-                        <li>Unaweza kukata tamaa kwa urahisi ukikabiliwa na shida kubwa</li>
-                        <li>Wakati mwingine unakuwa mbakhili na kushindwa kusaidia wengine</li>
-                        <li>Unaweza kukosa nidhamu na kushindwa kufuata taratibu muhimu</li>
-                        <li>Wakati mwingine hukosa uwazi na kuwa na siri zisizo za lazima</li>
-                        <li>Unaweza kukosa amani ya ndani na kuwa na wasiwasi na hofu nyingi</li>
-                    </ul>
-                    
-                    <!-- MAGONJWA 15 YANAYOWEZA KUKUHANGA -->
-                    <div class="section-title">
-                        <i class="fas fa-heartbeat" style="color:#ff6b6b;"></i> HATARI 15 ZA KIAFYA
-                    </div>
-                    <ul class="points-list">
-                        <li>Maumivu ya kichwa ya mara kwa mara yanayosababishwa na msongo wa mawazo</li>
-                        <li>Shinikizo la damu kutokana na hasira kali na kukosa utulivu wa akili</li>
-                        <li>Maumivu ya macho na uchovu wa macho kwa sababu ya kukaa kwenye skrini</li>
-                        <li>Kukosa usingizi (insomnia) kwa sababu ya mawazo mengi na wasiwasi</li>
-                        <li>Majeraha ya kichwa au uso kutokana na ajali au mapigano ya ghafla</li>
-                        <li>Sinusitis na mafua ya mara kwa mara kwa sababu ya mzio na hewa chafu</li>
-                        <li>Maumivu ya taya na meno kwa sababu ya kusaga meno usingizini</li>
-                        <li>Kichaa cha moyo (palpitations) kutokana na mkazo na mawazo mengi</li>
-                        <li>Uvimbe wa ubongo (meningitis) - hatari ndogo lakini iwe makini</li>
-                        <li>Matatizo ya usawa wa homoni yanayoathiri usingizi na hamu ya kula</li>
-                        <li>Kupata vidonda vya tumbo kutokana na mkazo na lishe isiyofaa</li>
-                        <li>Mzio wa ngozi usoni kwa sababu ya mabadiliko ya hewa na jua kali</li>
-                        <li>Kupata kifafa cha usingizi (sleep apnea) ikiwa una uzito kupita kiasi</li>
-                        <li>Maumivu ya shingo na mabega kwa sababu ya kukaa vibaya na mkazo</li>
-                        <li>Kuwa na wasiwasi na hofu nyingi (anxiety disorders) zinazoweza kukulemea</li>
-                    </ul>
-                    
-                    <!-- TIBA 10 ZA ASILI -->
-                    <div class="section-title">
-                        <i class="fas fa-leaf" style="color:#6bff6b;"></i> TIBA 10 ZA ASILI
-                    </div>
-                    <ul class="points-list remedy-list">
-                        <li>Kunywa maji ya joto na limao na asali kila asubuhi kabla ya kula chochote</li>
-                        <li>Tumia tangawizi na kitunguu saumu kwenye chakula chako kila siku</li>
-                        <li>Fanya mazoezi ya kupumua kwa kina (deep breathing) kwa dakika 10 kila siku</li>
-                        <li>Kunywa chai ya chamomile au lavender kabla ya kulala kutuliza neva</li>
-                        <li>Tumia mafuta ya zeituni au mafuta ya nazi kupaka mwili ili kulainisha ngozi</li>
-                        <li>Fanya massage ya kichwa na shingo mara kwa mara kwa kutumia mafuta ya mdalasini</li>
-                        <li>Tembea nje kwa hewa safi angalau dakika 30 kila siku asubuhi na mapema</li>
-                        <li>Kula matunda yenye vitamini C kama machungwa, ndimu, na mapera kila siku</li>
-                        <li>Kunywa maji ya nazi (madafu) mara kwa mara kusaidia mfumo wa kinga</li>
-                        <li>Fanya mazoezi ya yoga hasa yale yanayolenga kichwa na shingo ili kupunguza msongo</li>
-                    </ul>
-                    
-                    <!-- VITU 10 VYA KUEPUKA -->
-                    <div class="section-title">
-                        <i class="fas fa-ban" style="color:#ff4444;"></i> VITU 10 VYA KUEPUKA
-                    </div>
-                    <ul class="points-list avoid-list">
-                        <li>Epuka kukaa kwenye jua kali kwa muda mrefu bila kujikinga na mwanga</li>
-                        <li>Usitumie vichocheo kama kahawa nyingi au vinywaji vya nishati kupita kiasi</li>
-                        <li>Jiepushe na mabishano na ugomvi unaokufanya ukasirike na kupoteza amani</li>
-                        <li>Usipuuze usingizi wako - epuka kukaa macho usiku na kukosa usingizi</li>
-                        <li>Epuka kutumia simu au kompyuta kabla ya kulala kwa angalau saa moja</li>
-                        <li>Usile vyakula vya mafuta mengi na spicy sana hasa wakati wa usiku</li>
-                        <li>Epuka pombe kupita kiasi kwani inaongeza shinikizo la damu na mkazo</li>
-                        <li>Usijikaze sana kazini - pumzika mara kwa mara na chukua mapumziko</li>
-                        <li>Epuka kukaa kwenye mazingira yenye vumbi au moshi kwa muda mrefu</li>
-                        <li>Usiruhusu mawazo mabaya yakuchukue - tafuta ushauri na msaada</li>
-                    </ul>
-                    
-                    <!-- TABIA 10 ZA KUACHA -->
-                    <div class="section-title">
-                        <i class="fas fa-times-circle" style="color:#ff8888;"></i> TABIA 10 ZA KUACHA
-                    </div>
-                    <ul class="points-list">
-                        <li>Acha kukasirika kwa kila jambo dogo - jifunze kuvumilia na kusamehe</li>
-                        <li>Acha kuwa mkaidi na kushindwa kubadilisha msimamo wako hata ukikosea</li>
-                        <li>Acha kujiona bora kuliko wengine na kuwa na kiburi kisicho na msingi</li>
-                        <li>Acha kukosa subira na kuharakisha mambo yasiyohitaji haraka</li>
-                        <li>Acha kukata tamaa kwa urahisi - jifunze kupambana na changamoto</li>
-                        <li>Acha kujitenga na watu na kuwa mpweke - jenga uhusiano na wengine</li>
-                        <li>Acha kutokuamini watu - jifunze kuwa na imani na kuwategemea wengine</li>
-                        <li>Acha kutojali hisia za wengine na kuwaonea bila kukusudia</li>
-                        <li>Acha kuwa mkali na tabia kali zinazowafukuza watu wengine</li>
-                        <li>Acha kukosa mwelekeo - weka malengo wazi na uyafuate kwa bidii</li>
-                    </ul>
-                    
-                    <!-- NUKUU YA KUTIA MOYO -->
-                    <div class="badge">
-                        <i class="fas fa-quote-right" style="color:#d4af37; font-size:2rem; opacity:0.5;"></i>
-                        <p style="font-size:1rem;">"Wewe ni kiongozi wa asili, lakini kumbuka kuwa viongozi wakubwa ni wale wanaojua kusikiliza na kujali. Tumia nguvu zako kujenga, sio kubomoa."</p>
-                        <p style="text-align:right; color:#d4af37;">- Dr. William</p>
-                    </div>
-                    
-                    <!-- POINTS COUNTER (60+ Points) -->
-                    <div style="text-align:center; margin-top:20px; padding:10px; background:rgba(212,175,55,0.1); border-radius:10px;">
-                        <p style="color:#d4af37;"><i class="fas fa-crown"></i> Kadi hii ina maelezo <strong>80+ points</strong> ya hekima na mwongozo <i class="fas fa-crown"></i></p>
-                    </div>
-                </div>
-            </div>
+<body class="flex items-center justify-center p-4">
+
+  <!-- MODAL YA KIKOMO (mara 2 kwa siku) -->
+  <div id="limitModal" class="fixed inset-0 flex items-center justify-center z-[100] hidden px-4">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeLimitModal()"></div>
+    <div class="modal-premium rounded-3xl p-9 max-w-lg w-full text-center relative z-10 border border-amber-700/80">
+      <i class="fas fa-moon-star text-7xl gold-glow mb-5"></i>
+      <h3 class="font-['Cinzel'] text-4xl gold-glow mb-3">Umefikia kikomo</h3>
+      <p class="text-amber-100/90 text-2xl">Umesoma kadi mara mbili katika saa 24. Rudi baada ya muda kwa muongozo mwingine.</p>
+      <button onclick="closeLimitModal()" class="mt-8 btn-royal px-10 py-4 rounded-full text-2xl">Nimeelewa</button>
+    </div>
+  </div>
+
+  <main class="w-full max-w-7xl">
+
+    <!-- nembo ya DR. WILLIAM -->
+    <div class="text-center mb-4">
+      <span class="dr-logo">᛭ DR. WILLIAM  ᛭</span>
+      <p class="text-2xl text-amber-300/80 italic mt-2">Kusoma Kadi za Kioracle · Lango la Hekima</p>
+    </div>
+
+    <!-- chombo kikuu cha glasi -->
+    <div class="glass-master p-6 md:p-10 relative overflow-hidden">
+
+      <!-- eneo la kurusha kadi (shuffle) -->
+      <div id="shuffleCloud" class="absolute inset-0 pointer-events-none z-20 hidden" style="perspective: 1500px;"></div>
+
+      <!-- SCREEN YA MWANZO -->
+      <div id="startScreen" class="text-center py-16">
+        <i class="fas fa-crystal-ball text-8xl gold-glow mb-6"></i>
+        <h2 class="font-['Cinzel'] text-6xl gold-glow mb-5">Fungua Lango</h2>
+        <p class="text-2xl text-white/80 mb-12 max-w-2xl mx-auto">Kadi 130+ zitachanganyika kwa nguvu ya kiroho, kisha tatu za nyota yako zitajitokeza moja baada ya nyingine.</p>
+        <button id="vutaKadiBtn" class="btn-royal text-3xl px-16 py-6 rounded-full shadow-2xl">
+          <i class="fas fa-hand-sparkles mr-4"></i>VUTA KADI
+        </button>
+      </div>
+
+      <!-- ENEO LA KUSOMA (limefichwa mwanzoni) -->
+      <div id="readingArea" class="hidden">
+
+        <!-- viashiria vya hatua -->
+        <div class="flex justify-center items-center gap-5 mb-10 text-2xl">
+          <span id="step1Badge" class="w-14 h-14 rounded-full bg-amber-800/30 border-4 border-amber-500/40 flex items-center justify-center font-black text-2xl">1</span>
+          <span class="w-24 h-1 bg-amber-700/60"></span>
+          <span id="step2Badge" class="w-14 h-14 rounded-full bg-amber-800/30 border-4 border-amber-500/40 flex items-center justify-center font-black text-2xl">2</span>
+          <span class="w-24 h-1 bg-amber-700/60"></span>
+          <span id="step3Badge" class="w-14 h-14 rounded-full bg-amber-800/30 border-4 border-amber-500/40 flex items-center justify-center font-black text-2xl">3</span>
         </div>
-        
-        <!-- RATIBA YA KUSOMA KADI -->
-        <div class="reading-guide">
-            <h4><i class="fas fa-book-open" style="color:#d4af37;"></i> Jinsi ya Kusoma Kadi Hii</h4>
-            <p>1. Weka mkono wako juu ya kadi na uliza swali moyoni mwako<br>
-            2. Geuza kadi polepole na uangalie picha - inakumbusha nini?<br>
-            3. Soma maelezo na tafakari - ujumbe upo wapi?<br>
-            4. Chukua hatua moja ndogo leo kulingana na ujumbe uliopata</p>
-            <div class="steps">
-                <span class="step">✦ Uliza</span>
-                <span class="step">✦ Geuza</span>
-                <span class="step">✦ Tafakari</span>
-                <span class="step">✦ Tend
+
+        <!-- KADI TATU ZINAZOGEUKA -->
+        <div class="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-10">
+          <!-- KADI 1 – Ujumbe wa siku -->
+          <div id="card1" class="card-flip w-80 h-[450px] opacity-0 transition-opacity duration-700">
+            <div class="card-inner">
+              <div class="card-back"></div>
+              <div class="card-front p-5 flex flex-col" id="card1Front">
+                <div class="flex justify-between items-start">
+                  <span class="text-sm bg-black/50 px-4 py-1 rounded-full border border-amber-500">✦ UJUMBE WA SIKU ✦</span>
+                  <i class="fas fa-bookmark text-amber-400 text-3xl cursor-pointer hover:text-amber-200 transition" onclick="hifadhiKadi(0)"></i>
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-center text-center px-3">
+                  <img id="card1Img" src="" class="w-28 h-28 rounded-full border-4 border-amber-500 mb-4 object-cover shadow-2xl" alt="oracle">
+                  <h3 id="card1Title" class="font-bold text-3xl gold-glow mb-2"></h3>
+                  <p id="card1Msg" class="text-lg text-white/90 leading-relaxed"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- KADI 2 – Muongozo wa hatua -->
+          <div id="card2" class="card-flip w-80 h-[450px] opacity-0 transition-opacity duration-700">
+            <div class="card-inner">
+              <div class="card-back"></div>
+              <div class="card-front p-5 flex flex-col" id="card2Front">
+                <div class="flex justify-between items-start">
+                  <span class="text-sm bg-black/50 px-4 py-1 rounded-full border border-amber-500">✦ MUONGOZO WA HATUA ✦</span>
+                  <i class="fas fa-bookmark text-amber-400 text-3xl cursor-pointer hover:text-amber-200 transition" onclick="hifadhiKadi(1)"></i>
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-center text-center px-3">
+                  <img id="card2Img" src="" class="w-28 h-28 rounded-full border-4 border-amber-500 mb-4 object-cover" alt="oracle">
+                  <h3 id="card2Title" class="font-bold text-3xl gold-glow mb-2"></h3>
+                  <p id="card2Msg" class="text-lg text-white/90 leading-relaxed"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- KADI 3 – Hitimisho / Baraka -->
+          <div id="card3" class="card-flip w-80 h-[450px] opacity-0 transition-opacity duration-700">
+            <div class="card-inner">
+              <div class="card-back"></div>
+              <div class="card-front p-5 flex flex-col" id="card3Front">
+                <div class="flex justify-between items-start">
+                  <span class="text-sm bg-black/50 px-4 py-1 rounded-full border border-amber-500">✦ HITIMISHO / BARAKA ✦</span>
+                  <i class="fas fa-bookmark text-amber-400 text-3xl cursor-pointer hover:text-amber-200 transition" onclick="hifadhiKadi(2)"></i>
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-center text-center px-3">
+                  <img id="card3Img" src="" class="w-28 h-28 rounded-full border-4 border-amber-500 mb-4 object-cover" alt="oracle">
+                  <h3 id="card3Title" class="font-bold text-3xl gold-glow mb-2"></h3>
+                  <p id="card3Msg" class="text-lg text-white/90 leading-relaxed"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- vifungo vya kusogeza -->
+        <div id="nextCardContainer" class="flex justify-center mt-14">
+          <button id="nextCardBtn" class="btn-royal px-14 py-5 rounded-full text-3xl"><i class="fas fa-arrow-right mr-4"></i>KADI INAYOFUATA</button>
+        </div>
+        <div id="postReadingNav" class="flex justify-center items-center gap-8 mt-14 hidden">
+          <button id="kadiNyingineBtn" class="btn-royal px-12 py-5 rounded-full text-3xl"><i class="fas fa-redo-alt mr-3"></i>SOMA TENA</button>
+        </div>
+
+      </div> <!-- readingArea -->
+
+      <!-- KITUFE KIZURI CHA NEXT PAGE (kiko chini kabisa, nje ya readingArea ili ionekane wakati wote) -->
+      <div class="flex justify-center mt-16 mb-4">
+        <a href="#" id="nextPageLink" class="next-page-btn">
+          <i class="fas fa-door-open"></i> FUNGUA UKURASA UNAOFUATA
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      <p class="text-center text-amber-700/70 text-sm mb-2">(badilisha kiungo kwenye sifa ya <code class="bg-black/30 px-2 py-1 rounded">href</code> ya kitufe)</p>
+
+      <!-- footer nembo ndogo -->
+      <div class="text-center text-amber-800/50 text-base mt-6">·  DR. WILLIAM  ·  KILINGE CHA HEKIMA  ·</div>
+    </div> <!-- glass-master -->
+  </main>
+
+  <script>
+    (function() {
+      // ---------- HAZINA KADI (130+ zenye picha za kioracle) ----------
+      const oracleImages = [
+        'https://images.unsplash.com/photo-1609966864821-62dcc502ece6?q=80&w=1000&auto=format', // kikombe
+        'https://images.unsplash.com/photo-1612966872597-2d9e2b5f8f6b?q=80&w=1000&auto=format', // upanga
+        'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=1000&auto=format', // sarafu
+        'https://images.unsplash.com/photo-1611485988300-b7e681c5e9c2?q=80&w=1000&auto=format', // fimbo
+        'https://images.unsplash.com/photo-1507409613952-518459ac866d?q=80&w=1000&auto=format', // taji
+        'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1000&auto=format', // moyo
+        'https://images.unsplash.com/photo-1465146633011-14f8e0781093?q=80&w=1000&auto=format', // maua
+        'https://images.unsplash.com/photo-1602631985686-8bb0e905f202?q=80&w=1000&auto=format', // nyota
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1000&auto=format', // mwezi
+        'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=1000&auto=format', // maji
+        'https://images.unsplash.com/photo-1598971639058-9999004b79fd?q=80&w=1000&auto=format', // tembo
+        'https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=1000&auto=format', // simba
+        'https://images.unsplash.com/photo-1519947486511-46149fa0a254?q=80&w=1000&auto=format', // nyoka
+        'https://images.unsplash.com/photo-1617791160536-598cf32026f7?q=80&w=1000&auto=format', // fuwele
+        'https://images.unsplash.com/photo-1621155346337-1d19476ba7d6?q=80&w=1000&auto=format', // kioo
+        'https://images.unsplash.com/photo-1543007631-283050bb3f8c?q=80&w=1000&auto=format', // malaika
+        'https://images.unsplash.com/photo-1527526029430-319f10814153?q=80&w=1000&auto=format', // watoto
+        'https://images.unsplash.com/photo-1599930113854-035c6a15f3e9?q=80&w=1000&auto=format', // mti
+        'https://images.unsplash.com/photo-1578926288007-5b699c8e0e07?q=80&w=1000&auto=format', // tembo mwingine
+        'https://images.unsplash.com/photo-1586767003402-5bc7e8c5e3f1?q=80&w=1000&auto=format', // ngoma
+        'https://images.unsplash.com/photo-1611510338559-2f463335092c?q=80&w=1000&auto=format', // njiwa
+        'https://images.unsplash.com/photo-1515542625006-cd76c2776a5c?q=80&w=1000&auto=format', // ushungi
+        'https://images.unsplash.com/photo-1580793241553-e9f1cce181af?q=80&w=1000&auto=format', // jiwe
+        'https://images.unsplash.com/photo-1612966872597-2d9e2b5f8f6b?q=80&w=1000&auto=format'  // upanga mwingine
+      ];
+      const titles = [
+        "Kikombe cha Mwezi", "Upanga wa Ulimwengu", "Sarafu ya Rehema", "Fimbo ya Wazee", "Taji la Nyota",
+        "Moyo wa Upendo", "Ua la Amani", "Nyota ya Mchana", "Mwezi Mtukufu", "Chemchemi ya Uzima",
+        "Tembo wa Hekima", "Simba wa Ushujaa", "Nyoka ya Uponyaji", "Fuwele la Nuru", "Kioo cha Ukweli",
+        "Malaika Mlinzi", "Mtoto wa Furaha", "Mti wa Baraka", "Ngoma ya Ushindi", "Jicho la Mungu",
+        "Kikombe cha Agano", "Upanga wa Haki", "Sarafu ya Fadhili", "Fimbo ya Uongozi", "Taji la Utukufu",
+        "Moyo wa Huruma", "Ua la Kiroho", "Nyota ya Alfajiri", "Mwezi wa Usiku", "Chemchemi ya Hekima",
+        "Tembo wa Amani", "Simba wa Ushindi", "Nyoka ya Hekima", "Fuwele la Upendo", "Kioo cha Roho",
+        "Malaika wa Amani", "Mtoto wa Tumaini", "Mti wa Uhai", "Ngoma ya Shangwe", "Jicho la Hekima",
+        "Kikombe cha Baraka", "Upanga wa Ushujaa", "Sarafu ya Wingi", "Fimbo ya Nguvu", "Taji la Enzi",
+        "Moyo wa Imani", "Ua la Upendo", "Nyota ya Jioni", "Mwezi wa Mwangaza", "Chemchemi ya Furaha",
+        "Tembo wa Nguvu", "Simba wa Hekima", "Nyoka ya Uzima", "Fuwele la Amani", "Kioo cha Malaika",
+        "Malaika wa Nuru", "Mtoto wa Baraka", "Mti wa Ustawi", "Ngoma ya Amani", "Jicho la Upendo",
+        "Kikombe cha Uzima", "Upanga wa Imani", "Sarafu ya Baraka", "Fimbo ya Rehema", "Taji la Fadhili",
+        "Moyo wa Nguvu", "Ua la Hekima", "Nyota ya Mwezi", "Mwezi wa Nyota", "Chemchemi ya Imani",
+        "Tembo wa Baraka", "Simba wa Amani", "Nyoka ya Nuru", "Fuwele la Malaika", "Kioo cha Mwezi",
+        "Malaika wa Upendo", "Mtoto wa Amani", "Mti wa Hekima", "Ngoma ya Baraka", "Jicho la Malaika"
+      ];
+      const messages = [
+        "Kikombe chako kimejaa baraka, leo utapokea zawadi isiyotarajiwa.",
+        "Upanga wa haki uko mkononi mwako, usiogope kukata uhusiano unaokudhoofisha.",
+        "Sarafu hii inatangaza mafanikio ya fedha, lakini kumbuka kushiriki na wahitaji.",
+        "Fimbo ya wazee inakuongoza, heshimu busara ya waliokutangulia.",
+        "Taji la nyota linang'aa juu yako, wito wa uongozi umekuja.",
+        "Moyo wako uko wazi kupokea upendo mpya, usiufunge.",
+        "Ua la amani linachanua moyoni mwako, toa radhi kwa waliokukosea.",
+        "Nyota ya mchana inakupea mwanga wa kufanya uamuzi mgumu.",
+        "Mwezi mtukufu anafunua siri za usiku, sikiliza ndoto zako.",
+        "Chemchemi ya uzima inabubujika ndani yako, tembea karibu na maji.",
+        "Tembo wa hekima anakumbusha: subira ni ufunguo wa kila mlango.",
+        "Simba wa ushujaa anapiga ngurumo, sasa ni wakati wako kuchukua hatua.",
+        "Nyoka wa uponyaji anakuacha ngozi ya zamani, zaliwa upya.",
+        "Fuwele la nuru linawaka kifuani mwako, uwe na imani na njia yako.",
+        "Kioo cha ukweli kinaonyesha sura yako halisi, jikubali.",
+        "Malaika mlinzi yuko nyuma yako, hutawahi kuwa peke yako.",
+        "Mtoto wa furaha anacheka karibu, cheka pamoja naye.",
+        "Mti wa baraka umeota mizizi, familia yako itaunganishwa.",
+        "Ngoma ya ushindi inapigwa, shangilia kwa kila hatua ndogo.",
+        "Jicho la Mungu linakuangalia kwa upendo, uko salama.",
+        "Kikombe cha agano kinazunguka, msamaha utarejesha amani.",
+        "Upanga wa haki utakata minyororo ya dhuluma, kuwa na ujasiri.",
+        "Sarafu ya fadhili itarudi kwako mara saba, endelea kutoa.",
+        "Fimbo ya uongozi imekabidhiwa kwako, waongoze kwa upole.",
+        "Taji la utukufu litavaa kichwani mwako baada ya jaribu.",
+        "Moyo wa huruma unapasuka kwa wengine, lakini usijisahau.",
+        "Ua la kiroho linanukia mbali, somo lako litawagusa wengi.",
+        "Nyota ya alfajiri inatangaza mwanzo mpya, amka na shukrani.",
+        "Mwezi wa usiku unakupepea usingizi wa amani, kesho ni siku mpya.",
+        "Chemchemi ya hekima imefunguka, andika mawazo yanayokuja.",
+        "Tembo wa amani anatembea polepole, usikimbilie hasira.",
+        "Simba wa ushindi ameshinda vita, wewe pia utashinda.",
+        "Nyoka ya hekima inajikunja na kunyooka, enda na mtiririko wa maisha.",
+        "Fuwele la upendo linang'aa gizani, mtu anakupenda bila masharti.",
+        "Kioo cha roho kinaakisi uzuri wako wa ndani, usijilinganishe na wengine.",
+        "Malaika wa amani anapiga mbawa zake, utulivu utarudi nyumbani kwako.",
+        "Mtoto wa tumaini anazaliwa, usiache kuota.",
+        "Mti wa uhai una matunda kila msimu, shukrani kwa kila kipindi.",
+        "Ngoma ya shangwe itakusanya watu wako, karibu wapendwa.",
+        "Jicho la hekima linaona mbali, fanya uamuzi wa leo kwa mtazamo wa kesho.",
+        "Kikombe cha baraka kinamwagika, pokea kwa unyenyekevu.",
+        "Upanga wa ushujaa uko tayari, pambana na hofu zako.",
+        "Sarafu ya wingi itajaza hazina yako, lakini usiwe mtumwa wa mali.",
+        "Fimbo ya nguvu haitavunjika, tegemea misingi yako.",
+        "Taji la enzi linangojea, utawala wako utakuwa wa haki.",
+        "Moyo wa imani unadunda kwa utulivu, Mungu hayupo mbali.",
+        "Ua la upendo limechanua, mwombee mwenzako.",
+        "Nyota ya jioni inakuaga siku, toa shukrani kwa yaliyopita.",
+        "Mwezi wa mwangaza unaongoza wasafiri, wewe ni mwanga kwa wengine.",
+        "Chemchemi ya furaha haikai, tafuta sababu za kufurahi leo.",
+        "Tembo wa nguvu anabeba mzigo wako, kaa chini, pumzika.",
+        "Simba wa hekima anajua lini anyamaze, nyakati fulani kunyamaza ni dhahabu.",
+        "Nyoka ya uzima inabadilisha ngozi, wewe pia unaweza kubadilika.",
+        "Fuwele la amani limo ndani yako, litaleta utulivu popote uendapo.",
+        "Kioo cha malaika kinaonyesha sifa zako nzuri, ziorodheshe leo.",
+        "Malaika wa nuru anakufundisha jinsi ya kung'aa gizani.",
+        "Mtoto wa baraka anacheza mbele yako, usichoke kufurahia maisha.",
+        "Mti wa ustawi utazaa matunda mengi, endelea kulima mema.",
+        "Ngoma ya amani inavuta roho za watu, weka amani kwanza.",
+        "Jicho la upendo linaona mema kwa kila mtu, chagua kuona mema.",
+        "Kikombe cha uzima hunywesha maji ya uzima, njaa yako ya kiroho itatosheka."
+      ];
+
+      // jumla ya kadi 130
+      const oracleCards = [];
+      for (let i = 1; i <= 130; i++) {
+        const tIdx = (i-1) % titles.length;
+        const title = titles[tIdx] + (i % 5 === 0 ? " II" : "");
+        const msg = messages[(i-1) % messages.length];
+        const img = oracleImages[(i-1) % oracleImages.length];
+        oracleCards.push({ id: i, title, image_url: img, message: msg });
+      }
+
+      // ---------- MIPANGILIO YA HUDUMA ----------
+      let selectedCards = [];
+      let currentStep = 0;
+      const lastReadingsKey = "drWilliamReadings"; // store array of timestamps
+      const shuffleCloud = document.getElementById('shuffleCloud');
+      const startScreen = document.getElementById('startScreen');
+      const readingArea = document.getElementById('readingArea');
+      const nextBtn = document.getElementById('nextCardBtn');
+      const postNav = document.getElementById('postReadingNav');
+      const kadiNyingineBtn = document.getElementById('kadiNyingineBtn');
+      const stepBadges = [
+        document.getElementById('step1Badge'),
+        document.getElementById('step2Badge'),
+        document.getElementById('step3Badge')
+      ];
+      const cards = [
+        { card: document.getElementById('card1'), img: document.getElementById('card1Img'), title: document.getElementById('card1Title'), msg: document.getElementById('card1Msg') },
+        { card: document.getElementById('card2'), img: document.getElementById('card2Img'), title: document.getElementById('card2Title'), msg: document.getElementById('card2Msg') },
+        { card: document.getElementById('card3'), img: document.getElementById('card3Img'), title: document.getElementById('card3Title'), msg: document.getElementById('card3Msg') }
+      ];
+      const modal = document.getElementById('limitModal');
+
+      // kufunga modal
+      window.closeLimitModal = function() { modal.classList.add('hidden'); };
+
+      // kuhifadhi kadi (alert)
+      window.hifadhiKadi = function(index) {
+        if (!selectedCards[index]) return;
+        alert(`🔮 "${selectedCards[index].title}" imehifadhiwa kwenye kumbukumbu yako.`);
+      };
+
+      // Angalia kama mtumiaji anaweza kusoma (max mara 2 kwa muda wa saa 24)
+      function canRead() {
+        const stored = localStorage.getItem(lastReadingsKey);
+        if (!stored) return true;
+        const timestamps = JSON.parse(stored);
+        const now = Date.now();
+        const oneDay = 24 * 60 * 60 * 1000;
+        // filter timestamps zilizo ndani ya saa 24 zilizopita
+        const recent = timestamps.filter(ts => now - ts < oneDay);
+        // weka back ili zisije zikaongezeka ovyo (tunahifadhi upya baadaye)
+        localStorage.setItem(lastReadingsKey, JSON.stringify(recent));
+        return recent.length < 2; // kuruhusu mara 2 tu
+      }
+
+      function registerReading() {
+        const stored = localStorage.getItem(lastReadingsKey);
+        let timestamps = stored ? JSON.parse(stored) : [];
+        timestamps.push(Date.now());
+        // tunahifadhi tu za mwisho 2 (kwa usalama)
+        if (timestamps.length > 2) timestamps = timestamps.slice(-2);
+        localStorage.setItem(lastReadingsKey, JSON.stringify(timestamps));
+      }
+
+      // shuffle kubwa (muda mrefu 5.5s)
+      function startShuffle() {
+        if (!canRead()) {
+          modal.classList.remove('hidden');
+          return;
+        }
+
+        startScreen.classList.add('hidden');
+        readingArea.classList.remove('hidden');
+        postNav.classList.add('hidden');
+        nextBtn.parentElement.classList.remove('hidden');
+
+        currentStep = 0;
+        stepBadges.forEach((b, i) => {
+          b.classList.remove('border-amber-500', 'bg-amber-700/70');
+          b.classList.add('border-amber-500/40', 'bg-amber-800/30');
+        });
+
+        cards.forEach(c => {
+          c.card.classList.add('opacity-0');
+          c.card.classList.remove('flipped');
+        });
+
+        // ondoa cloud ikiwepo
+        shuffleCloud.innerHTML = '';
+        shuffleCloud.classList.remove('hidden');
+
+        // tengeneza kadi 300 zinazoruka
+        for (let i = 0; i < 320; i++) {
+          const part = document.createElement('div');
+          part.className = 'shuffle-particle';
+          const startX = (Math.random() * 300 - 150) + 'vw';
+          const startY = (Math.random() * 300 - 150) + 'vh';
+          const endX = (Math.random() * 100 - 50) + '%';
+          const endY = (Math.random() * 100 - 50) + '%';
+          const rot = Math.random() * 720;
+          part.style.setProperty('--start-x', startX);
+          part.style.setProperty('--start-y', startY);
+          part.style.setProperty('--end-x', endX);
+          part.style.setProperty('--end-y', endY);
+          part.style.setProperty('--rot', rot + 'deg');
+          part.style.left = '0';
+          part.style.top = '0';
+          part.style.width = '75px';
+          part.style.height = '115px';
+          shuffleCloud.appendChild(part);
+        }
+
+        // baada ya sek 5.5, chagua kadi na anza kufunua
+        setTimeout(() => {
+          shuffleCloud.innerHTML = '';
+          shuffleCloud.classList.add('hidden');
+
+          // chagua kadi 3 tofauti nasibu
+          const shuffled = [...oracleCards].sort(() => 0.5 - Math.random());
+          selectedCards = shuffled.slice(0, 3);
+
+          cards.forEach((c, idx) => {
+            c.img.src = selectedCards[idx].image_url;
+            c.title.innerText = selectedCards[idx].title;
+            c.msg.innerText = selectedCards[idx].message;
+          });
+
+          // rekodi kuwa amesoma
+          registerReading();
+
+          revealNextCard();
+        }, 5500);
+      }
+
+      function revealNextCard() {
+        if (currentStep >= 3) {
+          nextBtn.parentElement.classList.add('hidden');
+          postNav.classList.remove('hidden');
+          return;
+        }
+
+        stepBadges[currentStep].classList.remove('border-amber-500/40', 'bg-amber-800/30');
+        stepBadges[currentStep].classList.add('border-amber-500', 'bg-amber-700/70');
+
+        const cardEl = cards[currentStep].card;
+        cardEl.classList.remove('opacity-0');
+        setTimeout(() => {
+          cardEl.classList.add('flipped');
+        }, 70);
+
+        currentStep++;
+
+        if (currentStep === 3) {
+          setTimeout(() => {
+            if (currentStep === 3) {
+              nextBtn.parentElement.classList.add('hidden');
+              postNav.classList.remove('hidden');
+            }
+          }, 1300);
+        }
+      }
+
+      // vifungo
+      document.getElementById('vutaKadiBtn').addEventListener('click', startShuffle);
+      nextBtn.addEventListener('click', revealNextCard);
+      kadiNyingineBtn.addEventListener('click', () => {
+        if (!canRead()) {
+          modal.classList.remove('hidden');
+          return;
+        }
+        startShuffle();
+      });
+
+      // Kitufe cha next page – weka link yako hapa
+      const nextPageLink = document.getElementById('nextPageLink');
+      // Mfano: nextPageLink.href = "https://www.example.com";
+      // Sasa ni placeholder '#'; badilisha na URL yako.
+      nextPageLink.href = "#"; // <-- BADILISHA HII NA LINK YAKO HALISI
+    })();
+  </script>
+  <!-- mwongozo mdogo wa kurekebisha kiungo (kwenye kona) -->
+  <div style="position: fixed; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); color: #d4af37; padding: 8px 16px; border-radius: 40px; font-size: 15px; backdrop-filter: blur(4px); border: 1px solid #b49450;">
+    ✦ weka link yako kwenye <code style="background:black;padding:2px 6px;border-radius:8px;">#nextPageLink</code> ✦
+  </div>
+</body>
+</html>
